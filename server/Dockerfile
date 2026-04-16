@@ -1,14 +1,14 @@
-FROM node:20-alpine
+FROM node:20
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package.json and lockfile from root
+COPY ./package.json ./package-lock.json ./
+
 RUN npm install --omit=dev
 
+# Copy the rest of the project
 COPY . .
 
-ENV NODE_ENV=production
-
-EXPOSE 10000
-
+EXPOSE 5000
 CMD ["npm", "start"]
